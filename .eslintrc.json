@@ -23,5 +23,9 @@
         "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
     }
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": "latest"
   }
 }
