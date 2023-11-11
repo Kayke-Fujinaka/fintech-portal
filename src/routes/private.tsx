@@ -4,7 +4,5 @@ import { Navigate } from 'react-router-dom';
 export const PrivateRoute = ({ children }: { children: ReactNode }) => {
   const hasToken = sessionStorage.getItem('@token');
 
-  if (hasToken) return <>{children}</>;
-
-  return <Navigate to="/login" />;
+  return hasToken ? <>{children}</> : <Navigate to="/login" />;
 };
