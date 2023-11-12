@@ -13,7 +13,8 @@
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
     "react/react-in-jsx-scope": "off",
-    "react/self-closing-comp": "warn"
+    "react/self-closing-comp": "warn",
+    "no-useless-escape": "off"
   },
   "plugins": ["react", "import", "jsx-a11y"],
   "settings": {
