@@ -3,6 +3,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { PrivateRoute } from './private';
 import { PublicRoute } from './public';
 
+import RecoveryPassword from '../pages/Login/RecoveryPassword';
 import SignIn from '../pages/Login/SignIn';
 import SignUp from '../pages/Login/SignUp';
 import Dashboard from '../pages/Portal/Dashboard';
@@ -23,6 +24,14 @@ export const router = createBrowserRouter([
     element: (
       <PublicRoute>
         <SignUp />
+      </PublicRoute>
+    ),
+  },
+  {
+    path: '/recuperar-senha',
+    element: (
+      <PublicRoute>
+        <RecoveryPassword />
       </PublicRoute>
     ),
   },
