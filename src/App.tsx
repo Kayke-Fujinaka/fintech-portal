@@ -1,5 +1,6 @@
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { RouterProvider } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
 import { ThemeProvider } from 'styled-components';
 
 import { ToastAlert } from './components/ToastAlert';
