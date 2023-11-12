@@ -6,7 +6,6 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
- 
   }
 
   html {
@@ -17,7 +16,6 @@ export const GlobalStyle = createGlobalStyle`
     @media(max-width: 720px){
       font-size: 87.5%;
     }
-
   }
 
   body {
@@ -25,7 +23,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body, input, textarea, button {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Urbanist', sans-serif;    
     font-weight: 400;
   }
 
