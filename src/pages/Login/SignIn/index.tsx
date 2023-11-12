@@ -48,9 +48,7 @@ const SignIn = () => {
         }
       } catch (error) {
         console.error('Ocorreu um erro desconhecido: ', error);
-        toast.error(
-          'Ocorreu um erro desconhecido. Por favor, tente novamente.',
-        );
+        toast.error('Erro ao logar. Por favor, tente novamente.');
       } finally {
         setIsLoading(false);
       }
