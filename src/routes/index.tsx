@@ -6,6 +6,7 @@ import { PublicRoute } from './public';
 import SignIn from '../pages/Login/SignIn';
 import SignUp from '../pages/Login/SignUp';
 import Dashboard from '../pages/Portal/Dashboard';
+import NotFound from '../pages/Portal/NotFound';
 
 export const router = createBrowserRouter([
   {
@@ -31,5 +32,13 @@ export const router = createBrowserRouter([
         <Dashboard />
       </PrivateRoute>
     ),
+  },
+  {
+    path: '*',
+    element: <NotFound />,
+  },
+  {
+    path: '/404',
+    element: <NotFound />,
   },
 ]);
