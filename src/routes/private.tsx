@@ -1,6 +1,8 @@
 import { Navigate } from 'react-router-dom';
 
-export const PrivateRoute = ({ children }: { children: JSX.Element }) => {
+import { IRouteProps } from '../interfaces/routes';
+
+export const PrivateRoute = ({ children }: IRouteProps) => {
   const hasToken = sessionStorage.getItem('@token');
 
   return hasToken ? <>{children}</> : <Navigate to="/login" />;
