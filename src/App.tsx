@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { RouterProvider } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
@@ -8,7 +8,7 @@ import { theme } from './styles/theme';
 
 function App() {
   return (
-    <>
+    <HelmetProvider>
       <Helmet>
         <title>Fintech</title>
         <link rel="icon" href={'...'} />
@@ -29,7 +29,7 @@ function App() {
         <RouterProvider router={router} />
         <GlobalStyle />
       </ThemeProvider>
-    </>
+    </HelmetProvider>
   );
 }
 
