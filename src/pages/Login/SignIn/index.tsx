@@ -4,12 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
-import { ILoginInput } from '../../../interfaces/auth';
-import mockUsers from '../../../mocks/users.json';
+import { ILoginInput, IUser } from '../../../interfaces/auth';
 import { isEmail } from '../../../utils/validators';
 
 const SignIn = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -29,12 +28,15 @@ const SignIn = () => {
       .min(6, 'Sua senha deve conter 6 ou mais caracteres'),
   });
 
-  async function handleSubmit(values: ILoginInput) {
+  async function handleSubmit(values: ILoginInput): Promise<void> {
     setIsLoading(true);
 
     setTimeout(() => {
       try {
-        const user = mockUsers.find(
+        const storedUsers = localStorage.getItem('users');
+        const users: IUser[] = storedUsers ? JSON.parse(storedUsers) : [];
+
+        const user = users.find(
           user =>
             user.email === values.email && user.password === values.password,
         );
