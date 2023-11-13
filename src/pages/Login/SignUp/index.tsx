@@ -113,7 +113,7 @@ const SignUp = () => {
       </Formik>
 
       <p>
-        Já possui uma conta? <a href="/registro">Entrar</a>
+        Já possui uma conta? <a href="/">Entrar</a>
       </p>
     </div>
   );
