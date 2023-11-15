@@ -1,4 +1,4 @@
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { ErrorMessage, Field, Formik } from 'formik';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 
 import { ILoginInput, IUser } from '../../../interfaces/auth';
 import { isEmail } from '../../../utils/validators';
+import * as S from './styles';
 
 const SignIn = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -58,43 +59,45 @@ const SignIn = () => {
   }
 
   return (
-    <div>
-      <h1>
-        Bem-vindo de volta! <br /> Bom ver você novamente.
-      </h1>
+    <S.Container>
+      <S.Content>
+        <h1>
+          Bem-vindo de volta! <br /> Bom ver você novamente.
+        </h1>
 
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-        {({ isSubmitting }) => (
-          <Form>
-            <div>
-              <Field name="email" type="email" placeholder="E-mail" />
-              <ErrorMessage name="email" component="div" />
-            </div>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+        >
+          {({ isSubmitting }) => (
+            <S.StyledForm>
+              <S.InputGroup>
+                <Field name="email" type="email" placeholder="E-mail" />
+                <ErrorMessage name="email" className="error-message" component="div" />
+              </S.InputGroup>
 
-            <div>
-              <Field name="password" type="password" placeholder="Senha" />
-              <ErrorMessage name="password" component="div" />
-            </div>
+              <S.InputGroup>
+                <Field name="password" type="password" placeholder="Senha" />
+                <ErrorMessage name="password" className="error-message" component="div" />
+              </S.InputGroup>
 
-            <div>
               <a href="/recuperar-senha">Esqueceu sua senha?</a>
-            </div>
 
-            <button type="submit" disabled={isSubmitting || isLoading}>
-              {isLoading ? 'Carregando...' : 'Entrar'}
-            </button>
-          </Form>
-        )}
-      </Formik>
+              <button type="submit" disabled={isSubmitting || isLoading}>
+                {isLoading ? 'Carregando...' : 'Entrar'}
+              </button>
+            </S.StyledForm>
+          )}
+        </Formik>
+      </S.Content>
 
-      <p>
-        Não tem uma conta? <a href="/registro">Cadastre-se</a>
-      </p>
-    </div>
+      <S.Footer>
+        <p>
+          Não tem uma conta? <a href="/registro">Cadastre-se</a>
+        </p>
+      </S.Footer>
+    </S.Container>
   );
 };
 
