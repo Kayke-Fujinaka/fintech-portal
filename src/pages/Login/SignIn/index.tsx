@@ -1,9 +1,10 @@
-import { ErrorMessage, Field, Formik } from 'formik';
+import { Formik } from 'formik';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
+import { Input } from '../../../components/Login/Input';
 import { ILoginInput, IUser } from '../../../interfaces/auth';
 import { isEmail } from '../../../utils/validators';
 import * as S from './styles';
@@ -72,15 +73,12 @@ const SignIn = () => {
         >
           {({ isSubmitting }) => (
             <S.StyledForm>
-              <S.InputGroup>
-                <Field name="email" type="email" placeholder="E-mail" />
-                <ErrorMessage name="email" className="error-message" component="div" />
-              </S.InputGroup>
-
-              <S.InputGroup>
-                <Field name="password" type="password" placeholder="Senha" />
-                <ErrorMessage name="password" className="error-message" component="div" />
-              </S.InputGroup>
+              <Input name={'email'} type={'email'} placeholder={'E-mail'} />
+              <Input
+                name={'password'}
+                type={'password'}
+                placeholder={'Senha'}
+              />
 
               <a href="/recuperar-senha">Esqueceu sua senha?</a>
 

@@ -1,8 +1,9 @@
-import { ErrorMessage, Field, Formik } from 'formik';
+import { Formik } from 'formik';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
+import { Input } from '../../../components/Login/Input';
 import { IRegisterInput, IUser } from '../../../interfaces/auth';
 import { isEmail } from '../../../utils/validators';
 import * as S from './styles';
@@ -83,29 +84,18 @@ const SignUp = () => {
         >
           {({ isSubmitting }) => (
             <S.StyledForm>
-              <S.InputGroup>
-                <Field name="name" type="text" placeholder="Nome completo" />
-                <ErrorMessage name="name" component="div" />
-              </S.InputGroup>
-
-              <S.InputGroup>
-                <Field name="email" type="email" placeholder="E-mail" />
-                <ErrorMessage name="email" component="div" />
-              </S.InputGroup>
-
-              <S.InputGroup>
-                <Field name="password" type="password" placeholder="Senha" />
-                <ErrorMessage name="password" component="div" />
-              </S.InputGroup>
-
-              <S.InputGroup>
-                <Field
-                  name="confirmPassword"
-                  type="password"
-                  placeholder="Confirmar senha"
-                />
-                <ErrorMessage name="confirmPassword" component="div" />
-              </S.InputGroup>
+              <Input name={'name'} placeholder={'Nome Completo'} />
+              <Input name={'email'} type={'email'} placeholder={'E-mail'} />
+              <Input
+                name={'password'}
+                type={'password'}
+                placeholder={'Senha'}
+              />
+              <Input
+                name={'confirmPassword'}
+                type={'password'}
+                placeholder={'Confirmar senha'}
+              />
 
               <button type="submit" disabled={isSubmitting || isLoading}>
                 {isLoading ? 'Carregando...' : 'Registrar'}
