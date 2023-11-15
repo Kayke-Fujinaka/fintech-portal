@@ -8,6 +8,7 @@ import { Button } from '../../../components/Login/Button';
 import { IRegisterInput, IUser } from '../../../interfaces/auth';
 import { isEmail } from '../../../utils/validators';
 import * as S from './styles';
+import { Footer } from '../../../components/Login/Footer';
 
 const SignUp = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -107,11 +108,12 @@ const SignUp = () => {
           )}
         </Formik>
       </S.Content>
-      <S.Footer>
-        <p>
-          Já possui uma conta? <a href="/">Entrar</a>
-        </p>
-      </S.Footer>
+
+      <Footer
+        text={'Já possui uma conta? '}
+        redirectPath={'/'}
+        actionText={'Entrar'}
+      />
     </S.Container>
   );
 };

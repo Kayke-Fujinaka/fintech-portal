@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
 import { Button } from '../../../components/Login/Button';
+import { Footer } from '../../../components/Login/Footer';
 import { Input } from '../../../components/Login/Input';
 import { ILoginInput, IUser } from '../../../interfaces/auth';
 import { isEmail } from '../../../utils/validators';
@@ -93,11 +94,11 @@ const SignIn = () => {
         </Formik>
       </S.Content>
 
-      <S.Footer>
-        <p>
-          Não tem uma conta? <a href="/registro">Cadastre-se</a>
-        </p>
-      </S.Footer>
+      <Footer
+        text={'Não tem uma conta? '}
+        redirectPath={'/registro'}
+        actionText={'Cadastre-se'}
+      />
     </S.Container>
   );
 };
