@@ -1,10 +1,11 @@
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { ErrorMessage, Field, Formik } from 'formik';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
 import { IRegisterInput, IUser } from '../../../interfaces/auth';
 import { isEmail } from '../../../utils/validators';
+import * as S from './styles';
 
 const SignUp = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -69,53 +70,56 @@ const SignUp = () => {
   }
 
   return (
-    <div>
-      <h1>
-        Junte-se a nós! <br /> Cria sua conta agora.
-      </h1>
+    <S.Container>
+      <S.Content>
+        <h1>
+          Junte-se a nós! <br /> Cria sua conta agora.
+        </h1>
 
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-        {({ isSubmitting }) => (
-          <Form>
-            <div>
-              <Field name="name" type="text" placeholder="Nome completo" />
-              <ErrorMessage name="name" component="div" />
-            </div>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+        >
+          {({ isSubmitting }) => (
+            <S.StyledForm>
+              <S.InputGroup>
+                <Field name="name" type="text" placeholder="Nome completo" />
+                <ErrorMessage name="name" component="div" />
+              </S.InputGroup>
 
-            <div>
-              <Field name="email" type="email" placeholder="E-mail" />
-              <ErrorMessage name="email" component="div" />
-            </div>
+              <S.InputGroup>
+                <Field name="email" type="email" placeholder="E-mail" />
+                <ErrorMessage name="email" component="div" />
+              </S.InputGroup>
 
-            <div>
-              <Field name="password" type="password" placeholder="Senha" />
-              <ErrorMessage name="password" component="div" />
-            </div>
+              <S.InputGroup>
+                <Field name="password" type="password" placeholder="Senha" />
+                <ErrorMessage name="password" component="div" />
+              </S.InputGroup>
 
-            <div>
-              <Field
-                name="confirmPassword"
-                type="password"
-                placeholder="Confirmar senha"
-              />
-              <ErrorMessage name="confirmPassword" component="div" />
-            </div>
+              <S.InputGroup>
+                <Field
+                  name="confirmPassword"
+                  type="password"
+                  placeholder="Confirmar senha"
+                />
+                <ErrorMessage name="confirmPassword" component="div" />
+              </S.InputGroup>
 
-            <button type="submit" disabled={isSubmitting || isLoading}>
-              {isLoading ? 'Carregando...' : 'Registrar'}
-            </button>
-          </Form>
-        )}
-      </Formik>
-
-      <p>
-        Já possui uma conta? <a href="/">Entrar</a>
-      </p>
-    </div>
+              <button type="submit" disabled={isSubmitting || isLoading}>
+                {isLoading ? 'Carregando...' : 'Registrar'}
+              </button>
+            </S.StyledForm>
+          )}
+        </Formik>
+      </S.Content>
+      <S.Footer>
+        <p>
+          Já possui uma conta? <a href="/">Entrar</a>
+        </p>
+      </S.Footer>
+    </S.Container>
   );
 };
 
