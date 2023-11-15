@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
+import { Button } from '../../../components/Login/Button';
 import { Input } from '../../../components/Login/Input';
 import { ILoginInput, IUser } from '../../../interfaces/auth';
 import { isEmail } from '../../../utils/validators';
@@ -82,9 +83,11 @@ const SignIn = () => {
 
               <a href="/recuperar-senha">Esqueceu sua senha?</a>
 
-              <button type="submit" disabled={isSubmitting || isLoading}>
-                {isLoading ? 'Carregando...' : 'Entrar'}
-              </button>
+              <Button
+                isSubmitting={isSubmitting}
+                isLoading={isLoading}
+                text="Entrar"
+              />
             </S.StyledForm>
           )}
         </Formik>

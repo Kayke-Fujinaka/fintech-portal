@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
 import { Input } from '../../../components/Login/Input';
+import { Button } from '../../../components/Login/Button';
 import { IRegisterInput, IUser } from '../../../interfaces/auth';
 import { isEmail } from '../../../utils/validators';
 import * as S from './styles';
@@ -97,9 +98,11 @@ const SignUp = () => {
                 placeholder={'Confirmar senha'}
               />
 
-              <button type="submit" disabled={isSubmitting || isLoading}>
-                {isLoading ? 'Carregando...' : 'Registrar'}
-              </button>
+              <Button
+                isSubmitting={isSubmitting}
+                isLoading={isLoading}
+                text="Registrar"
+              />
             </S.StyledForm>
           )}
         </Formik>
