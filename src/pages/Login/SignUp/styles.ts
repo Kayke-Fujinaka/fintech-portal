@@ -10,25 +10,14 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
-  ${({ theme }) => css`
-    display: flex;
-    flex-grow: 1;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    max-width: 450px;
-    padding-inline: 32px;
-
-    h1 {
-      font-size: 2rem;
-      font-weight: 700;
-      color: ${theme.colors.secondary};
-      margin-bottom: 3rem;
-      width: 100%;
-      text-align: left;
-    }
-  `}
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 450px;
+  padding-inline: 32px;
 `;
 
 export const StyledForm = styled(Form)`

@@ -3,12 +3,13 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
-import { Input } from '../../../components/Login/Input';
 import { Button } from '../../../components/Login/Button';
+import { Footer } from '../../../components/Login/Footer';
+import { Heading } from '../../../components/Login/Heading';
+import { Input } from '../../../components/Login/Input';
 import { IRegisterInput, IUser } from '../../../interfaces/auth';
 import { isEmail } from '../../../utils/validators';
 import * as S from './styles';
-import { Footer } from '../../../components/Login/Footer';
 
 const SignUp = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -75,9 +76,10 @@ const SignUp = () => {
   return (
     <S.Container>
       <S.Content>
-        <h1>
-          Junte-se a nós! <br /> Cria sua conta agora.
-        </h1>
+        <Heading
+          firstParagraph="Junte-se a nós!"
+          secondParagraph="Cria sua conta agora."
+        />
 
         <Formik
           initialValues={initialValues}

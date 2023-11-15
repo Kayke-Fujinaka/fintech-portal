@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 
 import { Button } from '../../../components/Login/Button';
 import { Footer } from '../../../components/Login/Footer';
+import { Heading } from '../../../components/Login/Heading';
 import { Input } from '../../../components/Login/Input';
 import { ILoginInput, IUser } from '../../../interfaces/auth';
 import { isEmail } from '../../../utils/validators';
@@ -64,9 +65,10 @@ const SignIn = () => {
   return (
     <S.Container>
       <S.Content>
-        <h1>
-          Bem-vindo de volta! <br /> Bom ver você novamente.
-        </h1>
+        <Heading
+          firstParagraph="Bem-vindo de volta!"
+          secondParagraph="Bom ver você novamente."
+        />
 
         <Formik
           initialValues={initialValues}
