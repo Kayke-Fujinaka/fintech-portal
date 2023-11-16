@@ -1,9 +1,5 @@
+import { IHeadingProps } from './@types';
 import * as S from './styles';
-
-interface IHeadingProps {
-  firstParagraph: string;
-  secondParagraph: string;
-}
 
 export const Heading = ({ firstParagraph, secondParagraph }: IHeadingProps) => {
   return (

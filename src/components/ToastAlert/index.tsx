@@ -1,6 +1,6 @@
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, ToastContainerProps } from 'react-toastify';
 
-export function ToastAlert({ ...rest }) {
+export function ToastAlert({ ...rest }: ToastContainerProps) {
   return (
     <ToastContainer
       theme="colored"

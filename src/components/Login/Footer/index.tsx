@@ -1,10 +1,5 @@
+import { IFooterProps } from './@types';
 import * as S from './styles';
-
-interface IFooterProps {
-  text: string;
-  redirectPath: string;
-  actionText: string;
-}
 
 export const Footer = ({ text, redirectPath, actionText }: IFooterProps) => {
   return (

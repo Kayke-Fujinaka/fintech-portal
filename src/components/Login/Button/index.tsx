@@ -1,12 +1,5 @@
-import { ButtonHTMLAttributes, ReactNode } from 'react';
-
+import { IButtonProps } from './@types';
 import * as S from './styles';
-
-interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  isSubmitting?: boolean;
-  isLoading?: boolean;
-  children: ReactNode;
-}
 
 export const Button = ({
   isSubmitting,
