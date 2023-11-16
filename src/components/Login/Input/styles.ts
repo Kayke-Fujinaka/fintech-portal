@@ -20,7 +20,7 @@ export const InputGroup = styled.div`
 
     .error-message {
       position: absolute;
-      bottom: -20px; // Posicionar abaixo do input
+      bottom: -20px;
       left: 0;
       width: 100%;
       text-align: left;
