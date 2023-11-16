@@ -7,8 +7,11 @@ import { Button } from '../../../components/Login/Button';
 import { Footer } from '../../../components/Login/Footer';
 import { Heading } from '../../../components/Login/Heading';
 import { Input } from '../../../components/Login/Input';
+
 import { IRegisterInput, IUser } from '../../../interfaces/auth';
+
 import { isEmail } from '../../../utils/validators';
+
 import * as S from './styles';
 
 const SignUp = () => {
