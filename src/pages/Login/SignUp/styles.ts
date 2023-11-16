@@ -6,7 +6,13 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
+  overflow-y: auto;
+
+  @media (orientation: landscape) {
+    gap: 1rem;
+    padding: 1rem;
+  }
 `;
 
 export const Content = styled.div`
