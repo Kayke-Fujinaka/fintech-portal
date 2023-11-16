@@ -1,16 +1,16 @@
-import { ButtonHTMLAttributes } from 'react';
+import { ButtonHTMLAttributes, ReactNode } from 'react';
 import * as S from './styles';
 
 interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  isSubmitting: boolean;
-  isLoading: boolean;
-  text: string;
+  isSubmitting?: boolean;
+  isLoading?: boolean;
+  children: ReactNode;
 }
 
 export const Button = ({
   isSubmitting,
-  isLoading,
-  text,
+  isLoading = false,
+  children,
   ...rest
 }: IButtonProps) => {
   return (
@@ -19,7 +19,7 @@ export const Button = ({
       disabled={isSubmitting || isLoading}
       {...rest}
     >
-      {isLoading ? 'Carregando...' : text}
+      {isLoading ? 'Carregando...' : children}
     </S.StyledButton>
   );
 };

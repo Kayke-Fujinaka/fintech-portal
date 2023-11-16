@@ -101,11 +101,9 @@ const SignUp = () => {
                 placeholder={'Confirmar senha'}
               />
 
-              <Button
-                isSubmitting={isSubmitting}
-                isLoading={isLoading}
-                text="Registrar"
-              />
+              <Button isSubmitting={isSubmitting} isLoading={isLoading}>
+                Registrar
+              </Button>
             </S.StyledForm>
           )}
         </Formik>

@@ -86,11 +86,9 @@ const SignIn = () => {
 
               <a href="/recuperar-senha">Esqueceu sua senha?</a>
 
-              <Button
-                isSubmitting={isSubmitting}
-                isLoading={isLoading}
-                text="Entrar"
-              />
+              <Button isSubmitting={isSubmitting} isLoading={isLoading}>
+                Entrar
+              </Button>
             </S.StyledForm>
           )}
         </Formik>

@@ -54,11 +54,9 @@ const RecoveryPassword = () => {
             <S.StyledForm>
               <Input name={'email'} type={'email'} placeholder={'E-mail'} />
 
-              <Button
-                isSubmitting={isSubmitting}
-                isLoading={isLoading}
-                text="Enviar instruções"
-              />
+              <Button isSubmitting={isSubmitting} isLoading={isLoading}>
+                Enviar instruções
+              </Button>
             </S.StyledForm>
           )}
         </Formik>
