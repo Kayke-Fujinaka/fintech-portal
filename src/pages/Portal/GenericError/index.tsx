@@ -7,7 +7,7 @@ const GenericError = () => {
 
   const isAuthenticated = sessionStorage.getItem('@token');
 
-  const handleBack = () => {
+  const handleBack = (): void => {
     navigate(isAuthenticated ? '/' : '/login');
   };
 

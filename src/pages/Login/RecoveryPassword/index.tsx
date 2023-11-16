@@ -23,7 +23,7 @@ const RecoveryPassword = () => {
       .email('Entre com um e-mail válido.'),
   });
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (): Promise<void> => {
     setIsLoading(true);
 
     setTimeout(() => {

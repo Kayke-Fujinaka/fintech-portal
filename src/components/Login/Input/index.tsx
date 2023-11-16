@@ -11,9 +11,9 @@ export const Input = ({
   placeholder,
   ...rest
 }: IInputProps) => {
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const toggleShowPassword = () => setShowPassword(!showPassword);
+  const toggleShowPassword = (): void => setShowPassword(!showPassword);
 
   return (
     <S.InputGroup>
