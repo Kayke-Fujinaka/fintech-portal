@@ -2,6 +2,7 @@ export const theme = {
   fontSizes: {
     md: '1rem',
     xl: '1.25rem',
+    '2xl': '1.5rem',
     '4xl': '2rem',
   },
   fontWeights: {
