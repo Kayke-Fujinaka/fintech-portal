@@ -2,10 +2,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import BudgetBoundaryModal from '../../../components/BudgetBoundaryModal';
+import TransactionModal from '../../../components/TransactionModal';
 
 const Dashboard = () => {
-  const [isDeleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
+  const [isTransactionModalOpen, setTransactionModalOpen] =
+    useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -14,8 +15,8 @@ const Dashboard = () => {
     navigate('/login');
   };
 
-  const handleLimitSubmit = (newLimit: any) => {
-    console.log(newLimit);
+  const handleTransactionConfirm = (transactionData: any) => {
+    console.log(transactionData); // Aqui você deve substituir 'any' pelo tipo correto
   };
 
   return (
@@ -27,14 +28,14 @@ const Dashboard = () => {
       <br />
       <br />
 
-      <button onClick={() => setDeleteModalOpen(true)}>
-        Adicionar meta orçamental
+      <button onClick={() => setTransactionModalOpen(true)}>
+        Realizar Transação
       </button>
 
-      <BudgetBoundaryModal
-        isOpen={isDeleteModalOpen}
-        onRequestClose={() => setDeleteModalOpen(false)}
-        onLimitSubmit={handleLimitSubmit}
+      <TransactionModal
+        isOpen={isTransactionModalOpen}
+        onRequestClose={() => setTransactionModalOpen(false)}
+        onConfirm={handleTransactionConfirm}
       />
     </div>
   );

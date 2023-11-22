@@ -6,4 +6,5 @@ export interface IBaseModalProps {
   title: string;
   children: ReactNode;
   footerContent?: ReactNode;
+  isFooterCentered?: boolean;
 }

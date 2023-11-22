@@ -11,6 +11,7 @@ const BaseModal = ({
   title,
   children,
   footerContent,
+  isFooterCentered = false,
 }: IBaseModalProps) => {
   return (
     <S.StyledModal
@@ -24,7 +25,9 @@ const BaseModal = ({
         <S.CloseButton onClick={onRequestClose}>X</S.CloseButton>
       </S.ModalHeader>
       <S.ModalBody>{children}</S.ModalBody>
-      <S.ModalFooter>{footerContent}</S.ModalFooter>
+      <S.ModalFooter isCentered={isFooterCentered}>
+        {footerContent}
+      </S.ModalFooter>
     </S.StyledModal>
   );
 };

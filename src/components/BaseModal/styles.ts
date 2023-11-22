@@ -1,6 +1,10 @@
 import ReactModal from 'react-modal';
 import styled, { css } from 'styled-components';
 
+interface ModalFooterProps {
+  isCentered?: boolean;
+}
+
 export const StyledModal = styled(ReactModal)`
   ${({ theme }) => css`
     position: absolute;
@@ -51,11 +55,13 @@ export const ModalBody = styled.div`
   padding: 1rem 1.25rem;
 `;
 
-export const ModalFooter = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 1rem;
-  padding: 1rem 1.25rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+export const ModalFooter = styled.div<ModalFooterProps>`
+  ${({ isCentered }) => css`
+    display: flex;
+    justify-content: ${isCentered ? 'center' : 'space-between'};
+    align-items: center;
+    margin-top: 1rem;
+    padding: 1rem 1.25rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  `}
 `;
