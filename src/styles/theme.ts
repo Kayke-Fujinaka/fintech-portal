@@ -15,6 +15,8 @@ export const theme = {
     primary: '#ef5933',
     secondary: '#1e232c',
     danger: '#f75a68',
+    income: '#00A86B',
+    investment: '#031A6E',
     white: '#ffffff',
     alpha: {
       50: '#f7f8f9',
