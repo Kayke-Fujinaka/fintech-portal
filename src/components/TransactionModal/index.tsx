@@ -28,14 +28,14 @@ const TransactionModal = ({
     bank: '',
     maturity: '',
   });
-  
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
     console.log(name, value);
     setTransactionData(prevData => ({ ...prevData, [name]: value }));
   };
 
-  const isFormValid = () => {
+  const isFormValid = (): boolean => {
     const commonFieldsFilled =
       transactionData.amount.trim() !== '' &&
       transactionData.date.trim() !== '';
