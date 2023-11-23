@@ -16,7 +16,7 @@ const Dashboard = () => {
   };
 
   const handleTransactionConfirm = (transactionData: any) => {
-    console.log(transactionData); // Aqui você deve substituir 'any' pelo tipo correto
+    console.log(transactionData);
   };
 
   return (
