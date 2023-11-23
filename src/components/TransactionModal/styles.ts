@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+
 import { IButtonProps } from './@types';
 
 export const ModalBody = styled.div`
