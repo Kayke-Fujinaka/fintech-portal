@@ -35,7 +35,7 @@ const BudgetBoundaryModal = ({
         backgroundColor={theme.colors.secondary}
         color={theme.colors.white}
       >
-        Definir Limite
+        Definir
       </S.Button>
     </>
   );
