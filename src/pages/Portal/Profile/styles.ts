@@ -4,10 +4,9 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   height: calc(100vh - 83px);
+  margin-top: 2.5rem;
   margin-inline: auto;
-  padding: 1.25rem;
 
   @media (min-width: 768px) {
     height: calc(100vh - 83px);
