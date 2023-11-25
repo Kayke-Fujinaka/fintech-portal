@@ -1,4 +1,4 @@
-import { IDateInfoRequest, IDateInfoResponse } from '../interfaces/date';
+import { IDate, IDateInfoRequest, IDateInfoResponse } from '../interfaces/date';
 
 export function getCurrentDateInfo({
   date,
@@ -10,3 +10,14 @@ export function getCurrentDateInfo({
 
   return { day, month, year };
 }
+
+export const isPastMonth = ({ date }: IDate): boolean => {
+  const now = new Date();
+  const currentMonth = now.getMonth();
+  const currentYear = now.getFullYear();
+
+  return (
+    date.getFullYear() < currentYear ||
+    (date.getFullYear() === currentYear && date.getMonth() < currentMonth)
+  );
+};

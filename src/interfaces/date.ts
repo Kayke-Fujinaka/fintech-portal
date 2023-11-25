@@ -1,5 +1,8 @@
-export interface IDateInfoRequest {
+export interface IDate {
   date: Date;
+}
+
+export interface IDateInfoRequest extends IDate {
   locale?: string;
 }
 
