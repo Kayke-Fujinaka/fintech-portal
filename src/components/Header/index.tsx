@@ -31,10 +31,10 @@ const Header = () => {
             <S.NavLink href="/">Início</S.NavLink>
           </S.NavItem>
           <S.NavItem>
-            <S.NavLink href="/profile">Meu Perfil</S.NavLink>
+            <S.NavLink href="/meu-perfil">Meu Perfil</S.NavLink>
           </S.NavItem>
           <S.NavItem>
-            <S.NavLink href="/goals">Metas Orçamentais</S.NavLink>
+            <S.NavLink href="/limite-gasto">Metas Orçamentais</S.NavLink>
           </S.NavItem>
           <S.NavItem>
             <S.LogoutButton onClick={handleLogout}>
