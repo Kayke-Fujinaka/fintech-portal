@@ -10,6 +10,7 @@ import BudgetGoals from '../pages/Portal/BudgetGoals';
 import Dashboard from '../pages/Portal/Dashboard';
 import GenericError from '../pages/Portal/GenericError';
 import NotFound from '../pages/Portal/NotFound';
+import Profile from '../pages/Portal/Profile';
 
 export const router = createBrowserRouter([
   {
@@ -49,6 +50,14 @@ export const router = createBrowserRouter([
     element: (
       <PrivateRoute>
         <BudgetGoals />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: '/meu-perfil',
+    element: (
+      <PrivateRoute>
+        <Profile />
       </PrivateRoute>
     ),
   },
