@@ -4,8 +4,8 @@ import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import BudgetBoundaryModal from '../../../components/BudgetBoundaryModal';
 import { getCurrentDateInfo, isPastMonth } from '../../../utils/date';
 import { capitalizeFirstLetter } from '../../../utils/string';
-import * as S from './styles';
 import { Category, MonthlyLimit } from './@types';
+import * as S from './styles';
 
 const BudgetGoals = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -28,16 +28,12 @@ const BudgetGoals = () => {
     locale: 'pt-BR',
   });
 
-  const changeMonth = (monthDelta: number): void => {
-    setCurrentDate(prevDate => {
-      const newDate = new Date(
-        prevDate.getFullYear(),
-        prevDate.getMonth() + monthDelta,
-        1,
-      );
-      return newDate;
-    });
-  };
+  function changeMonth(monthDelta: number) {
+    setCurrentDate(
+      prevDate =>
+        new Date(prevDate.getFullYear(), prevDate.getMonth() + monthDelta, 1),
+    );
+  }
 
   const handlePrevMonth = (): void => changeMonth(-1);
   const handleNextMonth = (): void => changeMonth(1);
@@ -46,16 +42,13 @@ const BudgetGoals = () => {
     currentDate.getMonth() + 1
   }`;
 
-  const handleLimitSubmit = (newLimit: number): void => {
+  function handleLimitSubmit(newLimit: number): void {
     setMonthlyLimits(prev => ({
       ...prev,
-      [currentKey]: {
-        ...prev[currentKey],
-        limit: newLimit,
-      },
+      [currentKey]: { ...prev[currentKey], limit: newLimit },
     }));
     setIsModalOpen(false);
-  };
+  }
 
   const totalSpent =
     monthlyLimits[currentKey]?.categories?.reduce(
