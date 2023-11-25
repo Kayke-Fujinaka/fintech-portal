@@ -1,6 +1,6 @@
 export interface IDateInfoRequest {
-  date: Date,
-  locale?: string
+  date: Date;
+  locale?: string;
 }
 
 export interface IDateInfoResponse {
