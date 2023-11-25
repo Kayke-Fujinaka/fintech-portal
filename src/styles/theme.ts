@@ -21,6 +21,7 @@ export const theme = {
     white: '#ffffff',
     alpha: {
       50: '#f7f8f9',
+      100: '#eeeeee',
       300: '#dadada',
       500: '#6a707c',
     },
