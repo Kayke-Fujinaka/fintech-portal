@@ -60,6 +60,18 @@ const BudgetGoals = () => {
 
   const spentPercentage = limit ? (totalSpent / limit) * 100 : 0;
 
+  function handleDeleteLimit() {
+    setMonthlyLimits(prev => {
+      const updatedLimits = { ...prev };
+      delete updatedLimits[currentKey];
+      return updatedLimits;
+    });
+  }
+
+  function handleEditLimit() {
+    setIsModalOpen(true);
+  }
+
   return (
     <S.Container>
       <S.Header>Limite de Gastos</S.Header>
@@ -74,22 +86,28 @@ const BudgetGoals = () => {
       </S.BudgetHeader>
 
       {limit !== null ? (
-        <S.SpentedLimitContainer>
-          <S.ExpensesTitle>Despesas</S.ExpensesTitle>
-          <S.BudgetInfo>
-            R$ {totalSpent.toFixed(2)} de R$ {limit.toFixed(2)}
-          </S.BudgetInfo>
-          <S.ProgressBarContainer>
-            <S.ProgressBar width={spentPercentage} />
-          </S.ProgressBarContainer>
-          <div>
-            {categories.map((category, index) => (
-              <S.CategoryItem key={index}>
-                {category.name} - R$ {category.spent.toFixed(2)}
-              </S.CategoryItem>
-            ))}
-          </div>
-        </S.SpentedLimitContainer>
+        <>
+          <S.SpentedLimitContainer>
+            <S.ExpensesTitle>Despesas</S.ExpensesTitle>
+            <S.BudgetInfo>
+              R$ {totalSpent.toFixed(2)} de R$ {limit.toFixed(2)}
+            </S.BudgetInfo>
+            <S.ProgressBarContainer>
+              <S.ProgressBar width={spentPercentage} />
+            </S.ProgressBarContainer>
+            <div>
+              {categories.map((category, index) => (
+                <S.CategoryItem key={index}>
+                  {category.name} - R$ {category.spent.toFixed(2)}
+                </S.CategoryItem>
+              ))}
+            </div>
+          </S.SpentedLimitContainer>
+          <S.ActionButtons>
+            <S.Button onClick={handleEditLimit}>Editar</S.Button>
+            <S.Button onClick={handleDeleteLimit}>Deletar</S.Button>
+          </S.ActionButtons>
+        </>
       ) : (
         <S.BudgetContainer>
           <S.BudgetMessage>Nenhum limite de gasto definido.</S.BudgetMessage>

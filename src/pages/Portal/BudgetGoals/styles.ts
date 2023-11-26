@@ -109,6 +109,18 @@ export const SpentedLimitContainer = styled.div`
   margin-block: auto;
 `;
 
+export const ActionButtons = styled.div`
+  display: flex;
+  align-items: center; 
+  gap: 0.5rem; 
+  margin-bottom: 1.5rem;
+
+  button {
+    width: auto;
+    padding: 0.5rem 1rem; 
+  }
+`;
+
 export const ProgressBarContainer = styled.div`
   ${({ theme }) => css`
     width: 100%;
