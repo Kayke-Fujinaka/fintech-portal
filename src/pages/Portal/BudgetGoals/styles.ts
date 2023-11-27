@@ -111,13 +111,13 @@ export const SpentedLimitContainer = styled.div`
 
 export const ActionButtons = styled.div`
   display: flex;
-  align-items: center; 
-  gap: 0.5rem; 
+  align-items: center;
+  gap: 0.5rem;
   margin-bottom: 1.5rem;
 
   button {
     width: auto;
-    padding: 0.5rem 1rem; 
+    padding: 0.5rem 1rem;
   }
 `;
 

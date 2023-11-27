@@ -7,8 +7,8 @@ import RecoveryPassword from '../pages/Login/RecoveryPassword';
 import SignIn from '../pages/Login/SignIn';
 import SignUp from '../pages/Login/SignUp';
 import BudgetGoals from '../pages/Portal/BudgetGoals';
-import Dashboard from '../pages/Portal/Dashboard';
 import GenericError from '../pages/Portal/GenericError';
+import Home from '../pages/Portal/Home';
 import NotFound from '../pages/Portal/NotFound';
 import Profile from '../pages/Portal/Profile';
 
@@ -41,7 +41,7 @@ export const router = createBrowserRouter([
     path: '/',
     element: (
       <PrivateRoute>
-        <Dashboard />
+        <Home />
       </PrivateRoute>
     ),
   },
