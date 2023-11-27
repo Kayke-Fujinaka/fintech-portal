@@ -1,5 +1,9 @@
 import styled, { css } from 'styled-components';
 
+interface TransactionAmount {
+  isExpense: boolean;
+}
+
 export const Container = styled.div`
   ${({ theme }) => css`
     display: flex;
@@ -37,7 +41,11 @@ export const MonthSelector = styled.div`
 export const BalanceContainer = styled.div`
   position: relative;
   text-align: center;
-  margin: 1.25rem;
+  margin: 1rem 1rem 0 1rem;
+
+  @media (min-width: 768px) {
+    margin: 1.25rem;
+  }
 `;
 
 export const BalanceHeader = styled.h2`
@@ -50,9 +58,13 @@ export const BalanceHeader = styled.h2`
 
 export const BalanceAmount = styled.div`
   ${({ theme }) => css`
-    font-size: ${theme.fontSizes['4xl']};
+    font-size: ${theme.fontSizes['2xl']};
     font-weight: ${theme.fontWeights.bold};
     margin-bottom: 1rem;
+
+    @media (min-width: 768px) {
+      font-size: ${theme.fontSizes['4xl']};
+    }
   `}
 `;
 
@@ -63,13 +75,21 @@ export const BalanceAmountHidden = styled(BalanceAmount)`
 `;
 
 export const VisibilityToggle = styled.button`
-  background: none;
-  border: none;
-  cursor: pointer;
+  ${({ theme }) => css`
+    background: none;
+    border: none;
+    cursor: pointer;
 
-  svg {
-    font-size: 1.25rem;
-  }
+    svg {
+      font-size: ${theme.fontSizes['md']};
+    }
+
+    @media (min-width: 768px) {
+      svg {
+        font-size: ${theme.fontSizes['xl']};
+      }
+    }
+  `}
 `;
 
 export const CategoryContainer = styled.div`
@@ -89,11 +109,11 @@ export const CategoryCard = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 1rem;
+    padding: 0.75rem;
     background-color: ${color || theme.colors.primary};
     border-radius: 0.5rem;
     color: ${theme.colors.white};
-    font-size: ${theme.fontSizes.md};
+    font-size: ${theme.fontSizes.sm};
     box-shadow: 0 2px 4px ${theme.colors.alpha[300]};
 
     h3 {
@@ -101,7 +121,7 @@ export const CategoryCard = styled.div`
     }
 
     p {
-      font-size: ${theme.fontSizes.xl};
+      font-size: ${theme.fontSizes.md};
       font-weight: ${theme.fontWeights.bold};
     }
 
@@ -110,19 +130,28 @@ export const CategoryCard = styled.div`
         grid-column: span 2;
       }
     }
+
+    @media (min-width: 768px) {
+      padding: 1rem;
+      font-size: ${theme.fontSizes.md};
+
+      p {
+        font-size: ${theme.fontSizes.xl};
+      }
+    }
   `}
 `;
 
 export const AddTransactionButton = styled.button`
   ${({ theme }) => css`
-    width: 209.13px;
-    padding: 1rem;
+    width: 161.38px;
+    padding: 0.75rem;
     background-color: ${theme.colors.secondary};
     color: ${theme.colors.white};
     border-radius: 0.25rem;
     border: none;
     cursor: pointer;
-    font-size: ${theme.fontSizes.md};
+    font-size: ${theme.fontSizes.sm};
     font-weight: ${theme.fontWeights.bold};
     margin: 1rem 0;
 
@@ -132,6 +161,7 @@ export const AddTransactionButton = styled.button`
 
     @media (min-width: 768px) {
       width: 444.56px;
+      font-size: ${theme.fontSizes.md};
     }
 
     @media (min-width: 1100px) {
@@ -142,9 +172,8 @@ export const AddTransactionButton = styled.button`
 
 export const TransactionListContainer = styled.div`
   margin: 1rem 0;
-  padding: 0 1rem;
   max-height: 300px;
-  width: 209.13px;
+  width: 161.38px;
 
   @media (min-width: 768px) {
     width: 444.56px;
@@ -156,16 +185,24 @@ export const TransactionListContainer = styled.div`
 `;
 
 export const TransactionHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
+  ${({ theme }) => css`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-size: ${theme.fontSizes.sm};
+
+    @media (min-width: 768px) {
+      font-size: ${theme.fontSizes.md};
+    }
+  `}
 `;
 
 export const ViewAllButton = styled.button`
   ${({ theme }) => css`
     background-color: ${theme.colors.alpha[100]};
     padding: 0.25rem;
+    font-size: ${theme.fontSizes.sm};
 
     &:hover {
       filter: brightness(0.95);
@@ -173,6 +210,10 @@ export const ViewAllButton = styled.button`
 
     &:active {
       filter: brightness(0.9);
+    }
+
+    @media (min-width: 768px) {
+      font-size: ${theme.fontSizes.md};
     }
   `}
 `;
@@ -191,12 +232,77 @@ export const TransactionItem = styled.li`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  @media (min-width: 768px) {
+    padding: 1rem;
+  }
 `;
 
-export const TransactionDetails = styled.div``;
+export const TransactionDetails = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
 
-export const TransactionActions = styled.div``;
+    span:first-child {
+      font-weight: ${theme.fontWeights.semibold};
+      color: ${theme.colors.alpha[500]};
+    }
 
-export const EditButton = styled.button``;
+    span:last-child {
+      font-size: ${theme.fontSizes.sm};
+      color: ${theme.colors.alpha[500]};
+    }
+  `}
+`;
 
-export const DeleteButton = styled.button``;
+export const TransactionsDiv = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+`;
+
+export const TransactionAmount = styled.div<TransactionAmount>`
+  ${({ theme, isExpense }) => css`
+    font-weight: ${theme.fontWeights.bold};
+    color: ${isExpense ? theme.colors.danger : theme.colors.income};
+    font-size: ${theme.fontSizes.xl};
+    margin-bottom: 0.25rem;
+  `}
+`;
+
+export const TransactionDate = styled.div`
+  ${({ theme }) => css`
+    font-size: ${theme.fontSizes.sm};
+    color: ${theme.colors.alpha[500]};
+  `}
+`;
+
+export const TransactionActions = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const ActionButton = styled.button`
+  ${({ theme }) => css`
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    &:first-child {
+      margin-bottom: 0.25rem;
+    }
+
+    svg {
+      font-size: ${theme.fontSizes.md};
+      color: ${theme.colors.alpha[500]};
+    }
+  `}
+`;

@@ -1,6 +1,7 @@
 import { ChangeEvent, useState } from 'react';
-import { FiEye, FiEyeOff } from 'react-icons/fi';
+import { FiEdit2, FiEye, FiEyeOff, FiTrash2 } from 'react-icons/fi';
 
+import DeleteTransactionModal from '../../../components/DeleteTransactionModal';
 import TransactionModal from '../../../components/TransactionModal';
 import { theme } from '../../../styles/theme';
 import { isPastMonth } from '../../../utils/date';
@@ -47,6 +48,8 @@ const getRandomTransaction = (id: number): Transaction => {
 const Home = () => {
   const [isTransactionModalOpen, setIsTransactionModalOpen] =
     useState<boolean>(false);
+  const [isDeleteTransactionModalOpen, setIsDeleteTransactionModalOpen] =
+    useState<boolean>(false);
   const [isVisible, setIsVisible] = useState<boolean>(true);
   const [balance] = useState<number>(3500);
 
@@ -70,6 +73,10 @@ const Home = () => {
 
   const handleConfirmTransaction = () => {
     setIsTransactionModalOpen(false);
+  };
+
+  const handleDeleteTransaction = () => {
+    setIsDeleteTransactionModalOpen(false);
   };
 
   const transactions: Transaction[] = Array.from({ length: 20 }, (_, i) =>
@@ -136,12 +143,32 @@ const Home = () => {
               <S.TransactionItem key={transaction.id}>
                 <S.TransactionDetails>
                   <span>{transaction.category}</span>
-                  <span>{transaction.amount}</span>
+                  <span>{transaction.description}</span>
                 </S.TransactionDetails>
-                <S.TransactionActions>
-                  <S.EditButton>✏️</S.EditButton>
-                  <S.DeleteButton>🗑️</S.DeleteButton>
-                </S.TransactionActions>
+
+                <S.TransactionsDiv>
+                  <S.TransactionDetails>
+                    <S.TransactionAmount
+                      isExpense={transaction.type === 'expense'}
+                    >
+                      {transaction.amount.toLocaleString('pt-BR', {
+                        style: 'currency',
+                        currency: 'BRL',
+                      })}
+                    </S.TransactionAmount>
+                    <S.TransactionDate>{transaction.date}</S.TransactionDate>
+                  </S.TransactionDetails>
+                  <S.TransactionActions>
+                    <S.ActionButton>
+                      <FiEdit2 />
+                    </S.ActionButton>
+                    <S.ActionButton
+                      onClick={() => setIsDeleteTransactionModalOpen(true)}
+                    >
+                      <FiTrash2 />
+                    </S.ActionButton>
+                  </S.TransactionActions>
+                </S.TransactionsDiv>
               </S.TransactionItem>
             ))}
           </S.TransactionList>
@@ -152,6 +179,12 @@ const Home = () => {
         isOpen={isTransactionModalOpen}
         onRequestClose={() => setIsTransactionModalOpen(false)}
         onConfirm={handleConfirmTransaction}
+      />
+
+      <DeleteTransactionModal
+        isOpen={isDeleteTransactionModalOpen}
+        onRequestClose={() => setIsDeleteTransactionModalOpen(false)}
+        onDelete={handleDeleteTransaction}
       />
     </S.Container>
   );
