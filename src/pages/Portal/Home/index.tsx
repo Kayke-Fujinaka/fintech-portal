@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ChangeEvent, useState } from 'react';
 import { FiEdit2, FiEye, FiEyeOff, FiTrash2 } from 'react-icons/fi';
 
@@ -17,7 +18,7 @@ const getRandomDate = () => {
 
 interface Transaction {
   id: number;
-  type: 'income' | 'expense';
+  type: 'income' | 'expense' | 'investment';
   category: string;
   amount: number;
   date: string;
@@ -25,7 +26,7 @@ interface Transaction {
 }
 
 const getRandomTransaction = (id: number): Transaction => {
-  const types: Transaction['type'][] = ['income', 'expense'];
+  const types: Transaction['type'][] = ['income', 'expense', 'investment'];
   const categories = ['Alimentação', 'Transporte', 'Lazer', 'Saúde', 'Salário'];
   const descriptions = [
     'Jantar com amigos',
@@ -50,8 +51,10 @@ const Home = () => {
     useState<boolean>(false);
   const [isDeleteTransactionModalOpen, setIsDeleteTransactionModalOpen] =
     useState<boolean>(false);
+  const [selectedTransactionId, setSelectedTransactionId] = useState<number | null>(null);
   const [isVisible, setIsVisible] = useState<boolean>(true);
   const [balance] = useState<number>(3500);
+  const [transactions, setTransactions] = useState(() => Array.from({ length: 20 }, (_, i) => getRandomTransaction(i + 1)));
 
   const now = new Date();
   const currentYear = now.getFullYear();
@@ -63,6 +66,24 @@ const Home = () => {
 
   const [selectedMonth, setSelectedMonth] = useState(months[currentMonth]);
 
+  const handleConfirmTransaction = (newTransactionData: any) => {
+    console.log('Nova transação:', newTransactionData);
+    addNewTransaction(newTransactionData);
+    setIsTransactionModalOpen(false);
+  };
+
+  const addNewTransaction = (newTransaction: any) => {
+    console.log('Adicionando transação:', newTransaction);
+    setTransactions([...transactions, { ...newTransaction, id: transactions.length + 1 }]);
+  };
+
+  const filteredTransactions = transactions.filter(transaction => {
+    const transactionDate = new Date(transaction.date);
+    const transactionMonth = transactionDate.toLocaleDateString('pt-BR', { month: 'long' });
+    return transactionMonth === selectedMonth;
+  });
+
+
   const handleMonthChange = (e: ChangeEvent<HTMLSelectElement>): void => {
     setSelectedMonth(e.target.value);
   };
@@ -71,17 +92,28 @@ const Home = () => {
     setIsVisible(!isVisible);
   };
 
-  const handleConfirmTransaction = () => {
-    setIsTransactionModalOpen(false);
+  const handleDeleteClick = (id: number) => {
+    setSelectedTransactionId(id);
+    setIsDeleteTransactionModalOpen(true);
   };
 
-  const handleDeleteTransaction = () => {
+
+  const handleDeleteTransaction = (id: number) => {
+    const updatedTransactions = transactions.filter(transaction => transaction.id !== id);
+
+    setTransactions(updatedTransactions);
+
     setIsDeleteTransactionModalOpen(false);
   };
 
-  const transactions: Transaction[] = Array.from({ length: 20 }, (_, i) =>
-    getRandomTransaction(i + 1),
-  );
+  function getFormattedDate(dateInput: any) {
+    const date = new Date(dateInput);
+    const year = date.getFullYear();
+    const month = (1 + date.getMonth()).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+
+    return month + '/' + day + '/' + year;
+  }
 
   return (
     <S.Container>
@@ -139,10 +171,13 @@ const Home = () => {
             <S.ViewAllButton>Ver todos</S.ViewAllButton>
           </S.TransactionHeader>
           <S.TransactionList>
-            {transactions.map(transaction => (
+            {filteredTransactions.map(transaction => (
               <S.TransactionItem key={transaction.id}>
                 <S.TransactionDetails>
-                  <span>{transaction.category}</span>
+                  <span>
+                    {transaction.type === 'expense' ? 'Despesa' :
+                      transaction.type === 'income' ? 'Receita' : 'Investimento'}
+                  </span>
                   <span>{transaction.description}</span>
                 </S.TransactionDetails>
 
@@ -156,15 +191,13 @@ const Home = () => {
                         currency: 'BRL',
                       })}
                     </S.TransactionAmount>
-                    <S.TransactionDate>{transaction.date}</S.TransactionDate>
+                    <S.TransactionDate>{getFormattedDate(transaction.date)}</S.TransactionDate>
                   </S.TransactionDetails>
                   <S.TransactionActions>
                     <S.ActionButton>
                       <FiEdit2 />
                     </S.ActionButton>
-                    <S.ActionButton
-                      onClick={() => setIsDeleteTransactionModalOpen(true)}
-                    >
+                    <S.ActionButton onClick={() => handleDeleteClick(transaction.id)}>
                       <FiTrash2 />
                     </S.ActionButton>
                   </S.TransactionActions>
@@ -184,7 +217,11 @@ const Home = () => {
       <DeleteTransactionModal
         isOpen={isDeleteTransactionModalOpen}
         onRequestClose={() => setIsDeleteTransactionModalOpen(false)}
-        onDelete={handleDeleteTransaction}
+        onDelete={() => {
+          if (selectedTransactionId != null) {
+            handleDeleteTransaction(selectedTransactionId);
+          }
+        }}
       />
     </S.Container>
   );

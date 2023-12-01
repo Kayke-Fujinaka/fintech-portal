@@ -109,7 +109,7 @@ export const CategoryCard = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0.75rem;
+    padding: 0.75rem 2.25rem;
     background-color: ${color || theme.colors.primary};
     border-radius: 0.5rem;
     color: ${theme.colors.white};
@@ -144,7 +144,7 @@ export const CategoryCard = styled.div`
 
 export const AddTransactionButton = styled.button`
   ${({ theme }) => css`
-    width: 161.38px;
+    width: 245.38px;
     padding: 0.75rem;
     background-color: ${theme.colors.secondary};
     color: ${theme.colors.white};
@@ -173,7 +173,7 @@ export const AddTransactionButton = styled.button`
 export const TransactionListContainer = styled.div`
   margin: 1rem 0;
   max-height: 300px;
-  width: 161.38px;
+  width: 245.38px;
 
   @media (min-width: 768px) {
     width: 444.56px;
@@ -258,6 +258,12 @@ export const TransactionDetails = styled.div`
       font-size: ${theme.fontSizes.sm};
       color: ${theme.colors.alpha[500]};
     }
+
+    @media (min-width: 768px) {
+      span {
+        font-size: ${theme.fontSizes.md};
+      }
+    }
   `}
 `;
 
@@ -272,8 +278,12 @@ export const TransactionAmount = styled.div<TransactionAmount>`
   ${({ theme, isExpense }) => css`
     font-weight: ${theme.fontWeights.bold};
     color: ${isExpense ? theme.colors.danger : theme.colors.income};
-    font-size: ${theme.fontSizes.xl};
+    font-size: ${theme.fontSizes.sm};
     margin-bottom: 0.25rem;
+
+    @media (min-width: 768px) {
+      font-size: ${theme.fontSizes.md};
+    }
   `}
 `;
 

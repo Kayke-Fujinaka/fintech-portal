@@ -71,6 +71,13 @@ const TransactionFields = ({
       return (
         <>
           <input
+            name="description"
+            value={transactionData.description}
+            onChange={handleChange}
+            placeholder="Descrição"
+          />
+
+          <input
             name="type"
             value={transactionData.type}
             onChange={handleChange}
