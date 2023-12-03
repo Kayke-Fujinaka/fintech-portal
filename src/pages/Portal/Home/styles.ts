@@ -174,7 +174,6 @@ export const TransactionListContainer = styled.div`
   margin: 1rem 0;
   max-height: 300px;
   width: 245.38px;
-
   @media (min-width: 768px) {
     width: 444.56px;
   }
@@ -225,6 +224,11 @@ export const TransactionList = styled.ul`
   width: 100%;
   padding: 0;
   margin: 0;
+  padding-bottom: 6rem;
+
+  @media (min-width: 768px) {
+    padding-bottom: 3rem;
+  }
 `;
 
 export const TransactionItem = styled.li`

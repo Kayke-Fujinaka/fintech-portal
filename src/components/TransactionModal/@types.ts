@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface ITransactionData {
   description: string;
   date: string;
@@ -11,7 +12,7 @@ export interface ITransactionData {
 export interface ITransactionModalProps {
   isOpen: boolean;
   onRequestClose: () => void;
-  onConfirm: (data: ITransactionData) => void;
+  onConfirm: (data: any) => void;
 }
 
 export interface IButtonProps {

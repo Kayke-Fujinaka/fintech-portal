@@ -61,10 +61,19 @@ const TransactionModal = ({
     }
   };
 
-  const handleSubmit = (): void => {
-    onConfirm(transactionData);
+  const handleSubmit = () => {
+    if (!isFormValid()) return;
+  
+    const transactionWithType = {
+      ...transactionData,
+      type: transactionType, 
+      amount: parseFloat(transactionData.amount) || 0
+    };
+  
+    onConfirm(transactionWithType);
     onRequestClose();
   };
+  
 
   return (
     <BaseModal

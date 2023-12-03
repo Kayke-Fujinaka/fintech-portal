@@ -1,119 +1,78 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { FiEdit2, FiEye, FiEyeOff, FiTrash2 } from 'react-icons/fi';
+import { v4 as uuidv4 } from 'uuid';
 
 import DeleteTransactionModal from '../../../components/DeleteTransactionModal';
 import TransactionModal from '../../../components/TransactionModal';
+import { ITransaction, TransactionType } from '../../../interfaces/transaction';
 import { theme } from '../../../styles/theme';
-import { isPastMonth } from '../../../utils/date';
+import { getFormattedDate, getMonthsList, isPastMonth, isSameMonth } from '../../../utils/date';
 import { capitalizeFirstLetter } from '../../../utils/string';
+import { getThemeColor } from '../../../utils/theme';
+import { calculateBalance, calculateCategoryAmount } from '../../../utils/transaction';
+import { categories } from './constants';
 import * as S from './styles';
 
-const getRandomDate = () => {
-  const today = new Date();
-  const daysAgo = Math.floor(Math.random() * 30);
-  const randomDate = new Date(today.setDate(today.getDate() - daysAgo));
-  return randomDate.toLocaleDateString('pt-BR');
-};
-
-interface Transaction {
-  id: number;
-  type: 'income' | 'expense' | 'investment';
-  category: string;
-  amount: number;
-  date: string;
-  description: string;
-}
-
-const getRandomTransaction = (id: number): Transaction => {
-  const types: Transaction['type'][] = ['income', 'expense', 'investment'];
-  const categories = ['Alimentação', 'Transporte', 'Lazer', 'Saúde', 'Salário'];
-  const descriptions = [
-    'Jantar com amigos',
-    'Passagem de ônibus',
-    'Cinema',
-    'Consulta médica',
-    'Pagamento mensal',
-  ];
-
-  return {
-    id,
-    type: types[Math.floor(Math.random() * types.length)],
-    category: categories[Math.floor(Math.random() * categories.length)],
-    amount: parseFloat((Math.random() * 1000).toFixed(2)),
-    date: getRandomDate(),
-    description: descriptions[Math.floor(Math.random() * descriptions.length)],
-  };
-};
-
 const Home = () => {
-  const [isTransactionModalOpen, setIsTransactionModalOpen] =
-    useState<boolean>(false);
-  const [isDeleteTransactionModalOpen, setIsDeleteTransactionModalOpen] =
-    useState<boolean>(false);
+  const currentMonthFormatted = new Date().toLocaleDateString('pt-BR', { month: 'long' });
+  const [selectedMonth, setSelectedMonth] = useState<string>(currentMonthFormatted);
+  const [isTransactionModalOpen, setIsTransactionModalOpen] = useState<boolean>(false);
+  const [isDeleteTransactionModalOpen, setIsDeleteTransactionModalOpen] = useState<boolean>(false);
   const [selectedTransactionId, setSelectedTransactionId] = useState<number | null>(null);
   const [isVisible, setIsVisible] = useState<boolean>(true);
-  const [balance] = useState<number>(3500);
-  const [transactions, setTransactions] = useState(() => Array.from({ length: 20 }, (_, i) => getRandomTransaction(i + 1)));
+  const [balance, setBalance] = useState<number>(0);
+  const [transactions, setTransactions] = useState<ITransaction[]>([]);
 
-  const now = new Date();
-  const currentYear = now.getFullYear();
-  const currentMonth = now.getMonth();
+  useEffect(() => {
+    setBalance(calculateBalance(transactions))
+  }, [transactions]);
 
-  const months = Array.from({ length: currentMonth + 1 }, (_, i) =>
-    new Date(currentYear, i).toLocaleDateString('pt-BR', { month: 'long' }),
-  );
-
-  const [selectedMonth, setSelectedMonth] = useState(months[currentMonth]);
-
-  const handleConfirmTransaction = (newTransactionData: any) => {
-    console.log('Nova transação:', newTransactionData);
-    addNewTransaction(newTransactionData);
-    setIsTransactionModalOpen(false);
-  };
-
-  const addNewTransaction = (newTransaction: any) => {
-    console.log('Adicionando transação:', newTransaction);
-    setTransactions([...transactions, { ...newTransaction, id: transactions.length + 1 }]);
-  };
-
-  const filteredTransactions = transactions.filter(transaction => {
-    const transactionDate = new Date(transaction.date);
-    const transactionMonth = transactionDate.toLocaleDateString('pt-BR', { month: 'long' });
-    return transactionMonth === selectedMonth;
-  });
-
+  const months = getMonthsList()
 
   const handleMonthChange = (e: ChangeEvent<HTMLSelectElement>): void => {
     setSelectedMonth(e.target.value);
   };
 
-  const toggleVisibility = () => {
-    setIsVisible(!isVisible);
+  const toggleVisibility = (): void => setIsVisible(!isVisible);
+
+  const handleConfirmTransaction = (newTransactionData: any): void => {
+    addNewTransaction({
+      ...newTransactionData,
+      type: newTransactionData.type || 'investment',
+    });
+    setIsTransactionModalOpen(false);
   };
 
-  const handleDeleteClick = (id: number) => {
+  function formatTransaction(transaction: any): ITransaction {
+    return {
+      ...transaction,
+      id: uuidv4(),
+      amount: parseFloat(transaction.amount),
+    };
+  }
+
+  const addNewTransaction = (newTransaction: any): void => {
+    setTransactions([...transactions, formatTransaction(newTransaction)]);
+  };
+
+  const handleDeleteClick = (id: number): void => {
     setSelectedTransactionId(id);
     setIsDeleteTransactionModalOpen(true);
   };
 
-
-  const handleDeleteTransaction = (id: number) => {
-    const updatedTransactions = transactions.filter(transaction => transaction.id !== id);
-
-    setTransactions(updatedTransactions);
-
+  const handleDeleteTransaction = (id: number): void => {
+    setTransactions(transactions.filter(transaction => transaction.id !== id));
     setIsDeleteTransactionModalOpen(false);
   };
 
-  function getFormattedDate(dateInput: any) {
-    const date = new Date(dateInput);
-    const year = date.getFullYear();
-    const month = (1 + date.getMonth()).toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
+  const filteredTransactions = transactions.filter(transaction =>
+    isSameMonth(transaction.date, selectedMonth)
+  );
 
-    return month + '/' + day + '/' + year;
-  }
+  const calculateCategoryTotal = (type: TransactionType): number => {
+    return calculateCategoryAmount(type, transactions);
+  };
 
   return (
     <S.Container>
@@ -121,7 +80,7 @@ const Home = () => {
         <select
           value={selectedMonth}
           onChange={handleMonthChange}
-          disabled={isPastMonth({ date: now })}
+          disabled={isPastMonth({ date: new Date() })}
         >
           {months.map((month, index) => (
             <option key={index} value={month}>
@@ -146,18 +105,16 @@ const Home = () => {
       </S.BalanceContainer>
 
       <S.CategoryContainer>
-        <S.CategoryCard color={theme.colors.income}>
-          <h3>Receita</h3>
-          <p>R$ 5000</p>
-        </S.CategoryCard>
-        <S.CategoryCard color={theme.colors.danger}>
-          <h3>Despesas</h3>
-          <p>R$ 1200</p>
-        </S.CategoryCard>
-        <S.CategoryCard color={theme.colors.investment}>
-          <h3>Investimentos</h3>
-          <p>R$ 300</p>
-        </S.CategoryCard>
+        {categories.map(category => {
+          const categoryTotal = calculateCategoryTotal(category.type as TransactionType);
+
+          return (
+            <S.CategoryCard key={category.type} color={getThemeColor(category.color as keyof typeof theme.colors)}>
+              <h3>{category.label}</h3>
+              <p>R$ {categoryTotal.toLocaleString('pt-BR')}</p>
+            </S.CategoryCard>
+          );
+        })}
       </S.CategoryContainer>
 
       <S.AddTransactionButton onClick={() => setIsTransactionModalOpen(true)}>
@@ -175,8 +132,11 @@ const Home = () => {
               <S.TransactionItem key={transaction.id}>
                 <S.TransactionDetails>
                   <span>
-                    {transaction.type === 'expense' ? 'Despesa' :
-                      transaction.type === 'income' ? 'Receita' : 'Investimento'}
+                    {transaction.type === 'expense'
+                      ? 'Despesa'
+                      : transaction.type === 'income'
+                        ? 'Receita'
+                        : 'Investimento'}
                   </span>
                   <span>{transaction.description}</span>
                 </S.TransactionDetails>
@@ -191,13 +151,17 @@ const Home = () => {
                         currency: 'BRL',
                       })}
                     </S.TransactionAmount>
-                    <S.TransactionDate>{getFormattedDate(transaction.date)}</S.TransactionDate>
+                    <S.TransactionDate>
+                      {getFormattedDate(transaction.date)}
+                    </S.TransactionDate>
                   </S.TransactionDetails>
                   <S.TransactionActions>
                     <S.ActionButton>
                       <FiEdit2 />
                     </S.ActionButton>
-                    <S.ActionButton onClick={() => handleDeleteClick(transaction.id)}>
+                    <S.ActionButton
+                      onClick={() => handleDeleteClick(transaction.id)}
+                    >
                       <FiTrash2 />
                     </S.ActionButton>
                   </S.TransactionActions>
